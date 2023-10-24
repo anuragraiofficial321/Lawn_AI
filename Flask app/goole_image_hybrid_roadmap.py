@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 
-api_key = "AIzaSyC133iDrq3KJw4m88PCekWlQUWG2EffOo4"  # AIzaSyDI1o18Cxg2nZVphM0YMMNIlZC3XJ8RfY4"
+api_key = "AUWG2EffOo4"  # AIzaSyDI1o18Cxg2nZVphM0YMMNIlZC3XJ8RfY4"
 map_size = "640x640"
 size = "640x640"
 zoom = 20
