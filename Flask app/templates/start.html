@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Address Box</title>
+    <script>
+      window.onload = function () {
+        document.getElementById("user_text").value = "";
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("{{ url_for("static", filename="images/1.jpg") }}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        /*height: 100vh; /* Set the body height to fill the viewport */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Vertically center content */
+      }
+
+      h1 {
+        color: #fff;
+        background-color: #ffa500;
+        font-weight: bold;
+        padding: 10px;
+        margin: 0;
+        margin-top: 1px;
+      }
+
+      form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /*background-color: rgba(
+          255,
+          255,
+          255,
+          0.8
+        );*/ /* Semi-transparent white background */
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      label {
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      input[type="text"] {
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px 0; /* Add vertical margin between input fields */
+      }
+
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Simple Lawn</h1>
+    <form action="/submit" method="post">
+      <label for="user_text">Address:</label>
+      <input
+        type="text"
+        id="user_text"
+        name="user_text"
+        placeholder="Enter your address"
+      />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

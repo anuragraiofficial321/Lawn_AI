@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>House Area</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      h1 {
+        color: #fff;
+        background-color: #007bff;
+        font-weight: bold;
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+      }
+
+      #map {
+        width: 100%;
+        height: 400px;
+        margin: 20px 0;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      p {
+        font-size: 18px;
+        color: #555;
+        margin: 10px 0;
+      }
+      /* Style specific paragraphs */
+      p.property-label {
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      p.property-value {
+        font-weight: normal;
+        color: #007bff;
+      }
+      p.address {
+        font-weight: bold;
+        color: #007bff;
+      }
+      p {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: #111;
+      }
+
+      ul {
+          list-style: none;
+          padding: 0;
+      }
+
+      li {
+          margin-bottom: 10px;
+      }
+      .download-link {
+        display: inline-block;
+        background-color: #ff9900;
+        color: #fff;
+        font-size: 18px;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 2px;
+        transition: background-color 0.3s ease;
+    }
+
+    .download-link:hover {
+        background-color: #0056b3;
+    }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1o18Cxg2nZVphM0YMMNIlZC3XJ8RfY4"></script>
+  </head>
+  <body>
+    <h1>Lawn AI</h1>
+    <div class="container">
+      <div id="map"></div>
+      <img
+        src="{{ url_for('static', filename='images/image0.jpg') }}"
+        alt="Image"
+      />
+      <h1>Property Information</h1>
+      <!-- <p>Your Address: <span class="property-value">{{address}}</span></p> -->
+      <p class="address">{{ address }}</p>
+      <p class="property-label">Total Property Area:</p>
+      <p class="property-value">{{ total_area }} sq ft.</p>
+      <p class="property-label">Driveway Area:</p>
+      <p class="property-value">{{ driveway_area }} sq ft.</p>
+      <p class="property-label">House Area:</p>
+      <p class="property-value">{{ house_area }} sq ft.</p>
+      <p class="property-label">Lawn Area:</p>
+      <p class="property-value">{{ lawn_area }} sq ft.</p>
+      <p>Click the links below to download the files:</p>
+        <ul>
+            <li><a href="/download_data" class="download-link">Download Details</a></li>
+            
+            
+
+        </ul>
+      <button onclick="window.location.href = '/'">Go Back to Home</button>
+    </div>
+
+    <script>
+      function initialize() {
+          var coordinates = {{ coordinates|tojson|safe }};
+          var polygonCoordinates = coordinates.map(coord => {
+              return { lat: coord.lat, lng: coord.lng };
+          });
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 19,
+              center: polygonCoordinates[0], // Center on the first coordinate
+              mapTypeId: 'satellite'
+          });
+
+          var polygon = new google.maps.Polygon({
+              paths: polygonCoordinates,
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#FF0000',
+              fillOpacity: 0.35
+          });
+          polygon.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </body>
+</html>
